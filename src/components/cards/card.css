@@ -50,11 +50,11 @@
     margin: 10px;
     width: 55px;
     height: 13px;
-    padding-top:2px ;
-    background: #30A7D7;
+    padding: 2px 0px ;
     border-radius: 7px;
     font-size: 9px;
     color: #fff;
+    text-align: center;
 }
 
 .poke-infos{
@@ -92,9 +92,16 @@
 
 .stat p{
     font-size: 14px;
-    text-align: left;
+    text-align: center;
     margin-top: 3px;
     align-items: center;
+}
+
+.poke-id{
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .poke-id img{
@@ -103,6 +110,8 @@
 }
 
 .poke-id p{
+    margin-top: 5px;
+    text-align: center;
     font-size: 5px;
     line-height: 6px;
 }

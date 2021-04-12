@@ -1,44 +1,111 @@
 import './card.css'
-import Hp from '../../assets/life.svg'
+import {useEffect, useState} from 'react'
+import Heart from '../../assets/life.svg'
 import Shield from '../../assets/shield.svg'
 import Sword from '../../assets/sword.svg'
 import Fireball from '../../assets/fireball.svg'
 import  QR from '../../assets/qr-code.svg'
 
 
-function card(){
+function Card(props){
+    const [Color, setColor] = useState('#30A7D7')
+
+    useEffect(() => {
+
+            switch(props.Type){
+                case 'Água':
+                        setColor('#30A7D7');
+                break;
+                case 'Fogo':
+                        setColor('#f42');
+                    break;
+                case 'Grama':
+                        setColor('#7c5');
+                    break;
+                case 'Elétrico':
+                        setColor(' #fc3');
+                    break;
+                case 'Normal':
+                        setColor('#aa9');
+                    break;
+                case 'Gelo':
+                        setColor(' #6cf');
+                    break;
+                case 'Veneno':
+                        setColor(' #a59');
+                    break;
+                case 'Terra':
+                        setColor(' #db5');
+                    break;
+                case 'Voador':
+                        setColor(' #89f');
+                    break;
+                case 'Inseto':
+                        setColor(' #ab2');
+                    break;
+                case 'Psícquo':
+                        setColor(' #f59');
+                    break;
+                case 'Rocha':
+                        setColor(' #ba6');
+                    break;
+                case 'Fantasma':
+                        setColor(' #66b');
+                    break;
+                case 'Dragão':
+                        setColor(' #76e');
+                    break;
+                case 'Escuridão':
+                        setColor(' #754');
+                    break;
+                case 'Aço':
+                        setColor(' #aab');
+                    break;
+                case 'Fada':
+                        setColor(' #e9e');
+                    break;
+                default:
+                        setColor('#30A7D7')
+            }
+
+
+        
+      }, [props.Type]);
+  
+
+
     return(
         <div className="card-container">
-            <div className="card-margin">
-                <p className="poke-numeber">009</p>
-                <h1 className="poke-name">Blastoise</h1>
-                <img className="poke-image" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/009.png" alt="Blastoise"/>
-                <div className="type">Água</div>
+            <div style={{border: ` 1px solid ${Color}`}} className="card-margin">
+                <p className="poke-numeber">{props.Number}</p>
+                <h1 className="poke-name">{props.Name}</h1>
+                <img className="poke-image" src={props.Image} alt={props.Name}/>
+                <div style={{background: `${Color}`}} className="type">{props.Type}</div>
                 <div className="poke-infos">
                     <div className="poke-stats">
                     <div className="stat">
-                        <img src={Hp} alt="HP"/>
-                        <p>300</p>
+                        <img src={Heart} alt="HP"/>
+                        <p>{props.hp}</p>
                     </div>
 
                     <div className="stat">
                         <img src={Shield} alt="Shield"/>
-                        <p>50</p>
+                        <p>{props.Defese}</p>
                     </div>
 
                     <div className="stat">
-                        <img src={Sword} alt="Shield"/>
-                        <p>75</p>
+                        <img src={Sword} alt="Sword"/>
+                        <p>{props.Atack}</p>
                     </div>
 
                     <div className="stat">
-                        <img src={Fireball} alt="Shield"/>
-                        <p>100</p>
+                        <img src={Fireball} alt="FireBall"/>
+                        <p>{props.Especial}</p>
                     </div>
                     </div>
                     <div className="poke-id">
                         <img  className="qr-code" src={QR} alt="w651da651"/>
-                        <p>card id: w651da651</p>
+                        <p>{`Card ID:${props.Number}`}</p>
                     </div>
                 </div>
             </div>
@@ -47,4 +114,4 @@ function card(){
     )
 }
 
-export default card;
+export default Card;
