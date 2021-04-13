@@ -1,8 +1,21 @@
 import './styles.css'
-import {useState} from 'react';
+import {useEffect, useState, } from 'react';
 import Card from '../../components/cards/card'
+import api from '../../api/api'
+import List from '../../components/List/List'
 
 function CardEdite(){
+    const[CreatedCard, setCreatedCard] = useState({})
+
+    window.onload = getCards;
+    
+        async function getCards(){
+        
+            const response = await api.get('/cards')          
+            setCreatedCard(response.data)
+        }
+
+        console.log(CreatedCard)
 
     const [CardNumber, setCardNumber] = useState(9);
     const [CardName, setCardName] = useState('Blastoise')
@@ -17,8 +30,7 @@ function CardEdite(){
     const [MaxEspecial, setMaxEspecial] = useState(100)
     const [Especial, setMinEspecial] = useState(100)
 
-
-
+    
 
     return(
         <div className="edit-app">
@@ -107,12 +119,16 @@ function CardEdite(){
                     </div>
 
                     <div className="submit">
-                        <button>Enviar</button>
+                        <button onClick={getCards}>Enviar</button>
                     </div>
                 </div>
             </div>
             <div className="Edit-title">
                 <p>Cartas Criadas</p>
+            </div>
+
+            <div className="created-card">              
+                    <List/>
             </div>
         </div>
 
