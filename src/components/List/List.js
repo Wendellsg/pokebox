@@ -41,7 +41,7 @@ class List extends Component{
                     Atack={card.maxatack}
                     Especial={card.maxespecial}
                 />
-                    </li>)}
+            </li>)}
                 
             </div>
         )

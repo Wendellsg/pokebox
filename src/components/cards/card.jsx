@@ -71,11 +71,28 @@ function Card(props){
 
         
       }, [props.Type]);
+
+      const [SelectedCard, setSelectedCard] = useState('#F2F2F2')
+      const [Selected, setSelected] = useState(false)
+
+      useEffect(()=>{setSelected(true)},[])
+
+       function cardHandleClick(){
+          
+        setSelected(!Selected)
+
+        if(Selected){
+            setSelectedCard('#bfedff')
+        }else{
+            setSelectedCard('#F2F2F2')
+        }
+    
+      }
   
 
 
     return(
-        <div className="card-container">
+        <div className="card-container"  onClick={cardHandleClick} style={{background: `${SelectedCard}`}}>
             <div style={{border: ` 1px solid ${Color}`}} className="card-margin">
                 <p className="poke-numeber">{props.Number}</p>
                 <h1 className="poke-name">{props.Name}</h1>

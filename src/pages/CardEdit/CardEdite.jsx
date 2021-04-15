@@ -7,7 +7,7 @@ import List from '../../components/List/List'
 function CardEdite(){
     const[CreatedCard, setCreatedCard] = useState({})
 
-    window.onload = getCards;
+
     
         async function getCards(){
         
