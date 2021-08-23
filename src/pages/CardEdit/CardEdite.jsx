@@ -1,5 +1,5 @@
 import './styles.css'
-import {useEffect, useState, } from 'react';
+import { useState } from 'react';
 import Card from '../../components/cards/card'
 import api from '../../api/api'
 import List from '../../components/List/List'
@@ -30,6 +30,8 @@ function CardEdite(){
     const [MaxEspecial, setMaxEspecial] = useState(100)
     const [Especial, setMinEspecial] = useState(100)
 
+    setCardNumber()
+    console.log(MinHP, Defese, Atack, Especial)
     
 
     return(
