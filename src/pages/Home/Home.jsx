@@ -13,7 +13,7 @@ function Home() {
         let myLocalDeck = JSON.parse(localStorage.getItem('@Mydeck'));
         let myLocalFound = JSON.parse(localStorage.getItem('@MyFounds'));
         setMyDeck(myLocalDeck||[])
-        setFounds(myLocalFound||0)
+        setFounds(myLocalFound||300)
 
     },[])
 
