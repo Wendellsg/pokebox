@@ -5,63 +5,91 @@ import Shield from '../../assets/shield.svg'
 import Sword from '../../assets/sword.svg'
 import Fireball from '../../assets/fireball.svg'
 import  QR from '../../assets/qr-code.svg'
+import axios from 'axios'
 
 
-function Card(props){
+function Card({pokemonUrl, index, getCard, number, localDeck, removeCard}){
     const [Color, setColor] = useState('#30A7D7')
+    const [pokemonData, setpokemonData] = useState(null)
+    const [SelectedCard, setSelectedCard] = useState('#F2F2F2')
+    const [Selected, setSelected] = useState(false)
+    const [deleteCard, setDeleteCard] = useState(false)
+
+
+        
+    async function getPokemonList(){
+        try {
+          let pokemonListRequest = await axios.get(pokemonUrl);
+          return pokemonListRequest.data
+        } catch (error) {
+          //console.log(error)
+        }
+      }
+
+        
+    useEffect(()=>{
+        getPokemonList().then(res =>{
+          setpokemonData(res)
+        })
+      },[pokemonUrl])
+
+
 
     useEffect(() => {
 
-            switch(props.Type){
-                case 'Água':
+            switch(pokemonData?.types[0]?.type.name){
+                case 'water':
                         setColor('#30A7D7');
                 break;
-                case 'Fogo':
+                case 'fire':
                         setColor('#f42');
                     break;
-                case 'Grama':
+                case 'grass':
                         setColor('#7c5');
                     break;
-                case 'Elétrico':
+                case 'electric':
                         setColor(' #fc3');
                     break;
                 case 'Normal':
                         setColor('#aa9');
                     break;
-                case 'Gelo':
+                case 'fighting':
+                        setColor('#aa5');
+                    break;
+                case 'ice':
                         setColor(' #6cf');
                     break;
-                case 'Veneno':
+                case 'poison':
                         setColor(' #a59');
                     break;
-                case 'Terra':
+                case 'ground':
                         setColor(' #db5');
                     break;
                 case 'Voador':
                         setColor(' #89f');
                     break;
-                case 'Inseto':
+                case 'bug':
                         setColor(' #ab2');
                     break;
-                case 'Psícquo':
+                case 'psychic':
                         setColor(' #f59');
                     break;
-                case 'Rocha':
+                case 'rock':
                         setColor(' #ba6');
                     break;
-                case 'Fantasma':
+                case 'ghost':
                         setColor(' #66b');
                     break;
-                case 'Dragão':
+                case 'dragon':
                         setColor(' #76e');
                     break;
-                case 'Escuridão':
+                case 'darkness':
                         setColor(' #754');
                     break;
-                case 'Aço':
+                case 'steel':
                         setColor(' #aab');
                     break;
-                case 'Fada':
+                case 'fairy':
                         setColor(' #e9e');
                     break;
                 default:
@@ -70,59 +98,62 @@ function Card(props){
 
 
         
-      }, [props.Type]);
+      }, [pokemonData?.types[0]?.type?.name]);
 
-      const [SelectedCard, setSelectedCard] = useState('#F2F2F2')
-      const [Selected, setSelected] = useState(false)
 
       useEffect(()=>{setSelected(true)},[])
 
        function cardHandleClick(){
-          
+        if(localDeck) {
+            setDeleteCard(true)
+            setTimeout(() => {
+                removeCard(number)
+            }, 1000);
+           
+        return;
+    }
+        setDeleteCard(true)
+        setTimeout(() => {
+            getCard(number)
+        }, 500);
         setSelected(!Selected)
 
-        if(Selected){
-            setSelectedCard('#bfedff')
-        }else{
-            setSelectedCard('#F2F2F2')
-        }
-    
       }
-  
 
+    if(!pokemonData)return '';
 
     return(
-        <div className="card-container"  onClick={cardHandleClick} style={{background: `${SelectedCard}`}}>
+        <div className={`card-container roll-in-blurred-left ${deleteCard?'swirl-out-bck':''}`}  onClick={cardHandleClick} style={{background: `${SelectedCard}`, animationDelay: `${index}50ms`}}>
             <div style={{border: ` 1px solid ${Color}`}} className="card-margin">
-                <p className="poke-numeber">{props.Number}</p>
-                <h1 className="poke-name">{props.Name}</h1>
-                <img className="poke-image" src={props.Image} alt={props.Name}/>
-                <div style={{background: `${Color}`}} className="type">{props.Type}</div>
+            <p className="poke-numeber">{pokemonData.id}</p>
+                <h1 className="poke-name">{pokemonData?.name}</h1>
+                <img className="poke-image" src={pokemonData?.sprites?.front_default} alt="Blastoise"/>
+                <div className="type" style={{background: `${Color}`}}>{pokemonData?.types[0]?.type?.name}</div>
                 <div className="poke-infos">
                     <div className="poke-stats">
                     <div className="stat">
                         <img src={Heart} alt="HP"/>
-                        <p>{props.hp}</p>
+                        <p>{pokemonData?.stats[0]?.base_stat}</p>
                     </div>
 
                     <div className="stat">
                         <img src={Shield} alt="Shield"/>
-                        <p>{props.Defese}</p>
+                        <p>{pokemonData?.stats[2]?.base_stat}</p>
                     </div>
 
                     <div className="stat">
-                        <img src={Sword} alt="Sword"/>
-                        <p>{props.Atack}</p>
+                        <img src={Sword} alt="Shield"/>
+                        <p>{pokemonData?.stats[1]?.base_stat}</p>
                     </div>
 
                     <div className="stat">
-                        <img src={Fireball} alt="FireBall"/>
-                        <p>{props.Especial}</p>
+                        <img src={Fireball} alt="Shield"/>
+                        <p>{pokemonData?.stats[3]?.base_stat}</p>
                     </div>
                     </div>
                     <div className="poke-id">
                         <img  className="qr-code" src={QR} alt="w651da651"/>
-                        <p>{`Card ID:${props.Number}`}</p>
+                        <p>card id: w651da651</p>
                     </div>
                 </div>
             </div>
