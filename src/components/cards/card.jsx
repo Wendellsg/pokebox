@@ -122,12 +122,22 @@ function Card({pokemonUrl, index, getCard, number, localDeck, removeCard}){
 
     if(!pokemonData)return '';
 
+    function fixNumber(){
+        if(number<10){
+            return `00${number}`
+        }else if(number<100){
+            return `0${number}`
+        }else{
+            return number
+        }
+    }
+
     return(
         <div className={`card-container roll-in-blurred-left ${deleteCard?'swirl-out-bck':''}`}  onClick={cardHandleClick} style={{background: `${SelectedCard}`, animationDelay: `${index}50ms`}}>
             <div style={{border: ` 1px solid ${Color}`}} className="card-margin">
             <p className="poke-numeber">{pokemonData.id}</p>
                 <h1 className="poke-name">{pokemonData?.name}</h1>
-                <img className="poke-image" src={pokemonData?.sprites?.front_default} alt="Blastoise"/>
+                <img className="poke-image" src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${fixNumber()}.png`} alt="Blastoise"/>
                 <div className="type" style={{background: `${Color}`}}>{pokemonData?.types[0]?.type?.name}</div>
                 <div className="poke-infos">
                     <div className="poke-stats">
