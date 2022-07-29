@@ -1,39 +1,154 @@
 import './card.css'
-import Hp from '../../assets/life.svg'
+import {useEffect, useState} from 'react'
+import Heart from '../../assets/life.svg'
 import Shield from '../../assets/shield.svg'
 import Sword from '../../assets/sword.svg'
 import Fireball from '../../assets/fireball.svg'
 import  QR from '../../assets/qr-code.svg'
+import axios from 'axios'
 
 
-function card(){
+function Card({pokemonUrl, index, getCard, number, localDeck, removeCard}){
+    const [Color, setColor] = useState('#30A7D7')
+    const [pokemonData, setpokemonData] = useState(null)
+    const [SelectedCard, setSelectedCard] = useState('#F2F2F2')
+    const [Selected, setSelected] = useState(false)
+    const [deleteCard, setDeleteCard] = useState(false)
+
+
+        
+    async function getPokemonList(){
+        try {
+          let pokemonListRequest = await axios.get(pokemonUrl);
+          return pokemonListRequest.data
+        } catch (error) {
+          //console.log(error)
+        }
+      }
+
+        
+    useEffect(()=>{
+        getPokemonList().then(res =>{
+          setpokemonData(res)
+        })
+      },[pokemonUrl])
+
+
+
+    useEffect(() => {
+
+            switch(pokemonData?.types[0]?.type.name){
+                case 'water':
+                        setColor('#30A7D7');
+                break;
+                case 'fire':
+                        setColor('#f42');
+                    break;
+                case 'grass':
+                        setColor('#7c5');
+                    break;
+                case 'electric':
+                        setColor(' #fc3');
+                    break;
+                case 'Normal':
+                        setColor('#aa9');
+                    break;
+                case 'fighting':
+                        setColor('#aa5');
+                    break;
+                case 'ice':
+                        setColor(' #6cf');
+                    break;
+                case 'poison':
+                        setColor(' #a59');
+                    break;
+                case 'ground':
+                        setColor(' #db5');
+                    break;
+                case 'Voador':
+                        setColor(' #89f');
+                    break;
+                case 'bug':
+                        setColor(' #ab2');
+                    break;
+                case 'psychic':
+                        setColor(' #f59');
+                    break;
+                case 'rock':
+                        setColor(' #ba6');
+                    break;
+                case 'ghost':
+                        setColor(' #66b');
+                    break;
+                case 'dragon':
+                        setColor(' #76e');
+                    break;
+                case 'darkness':
+                        setColor(' #754');
+                    break;
+                case 'steel':
+                        setColor(' #aab');
+                    break;
+                case 'fairy':
+                        setColor(' #e9e');
+                    break;
+                default:
+                        setColor('#30A7D7')
+            }
+
+
+        
+      }, [pokemonData?.types[0]?.type?.name]);
+
+
+      useEffect(()=>{setSelected(true)},[])
+
+       function cardHandleClick(){
+        if(localDeck) {
+            setDeleteCard(true)
+            setTimeout(() => {
+                removeCard(number)
+            }, 1000);
+           
+        return;
+    }
+        setDeleteCard(true)
+        setTimeout(() => {
+            getCard(number)
+        }, 500);
+        setSelected(!Selected)
+
+      }
+
+    if(!pokemonData)return '';
+
     return(
-        <div className="card-container">
-            <div className="card-margin">
-                <p className="poke-numeber">009</p>
-                <h1 className="poke-name">Blastoise</h1>
-                <img className="poke-image" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/009.png" alt="Blastoise"/>
-                <div className="type">Água</div>
+        <div className={`card-container roll-in-blurred-left ${deleteCard?'swirl-out-bck':''}`}  onClick={cardHandleClick} style={{background: `${SelectedCard}`, animationDelay: `${index}50ms`}}>
+            <div style={{border: ` 1px solid ${Color}`}} className="card-margin">
+            <p className="poke-numeber">{pokemonData.id}</p>
+                <h1 className="poke-name">{pokemonData?.name}</h1>
+                <img className="poke-image" src={pokemonData?.sprites?.front_default} alt="Blastoise"/>
+                <div className="type" style={{background: `${Color}`}}>{pokemonData?.types[0]?.type?.name}</div>
                 <div className="poke-infos">
                     <div className="poke-stats">
                     <div className="stat">
-                        <img src={Hp} alt="HP"/>
-                        <p>300</p>
+                        <img src={Heart} alt="HP"/>
+                        <p>{pokemonData?.stats[0]?.base_stat}</p>
                     </div>
 
                     <div className="stat">
                         <img src={Shield} alt="Shield"/>
-                        <p>50</p>
+                        <p>{pokemonData?.stats[2]?.base_stat}</p>
                     </div>
 
                     <div className="stat">
                         <img src={Sword} alt="Shield"/>
-                        <p>75</p>
+                        <p>{pokemonData?.stats[1]?.base_stat}</p>
                     </div>
 
                     <div className="stat">
                         <img src={Fireball} alt="Shield"/>
-                        <p>100</p>
+                        <p>{pokemonData?.stats[3]?.base_stat}</p>
                     </div>
                     </div>
                     <div className="poke-id">
@@ -47,4 +162,4 @@ function card(){
     )
 }
 
-export default card;
+export default Card;

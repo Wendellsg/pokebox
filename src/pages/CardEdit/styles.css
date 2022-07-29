@@ -1,0 +1,167 @@
+.edit-app{
+    max-width: 980px;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Edit-title{
+    width: 225px;
+    height: 46px;
+    background: #F2F2F2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.Edit-title{
+    font-size: 18px;
+    font-weight: 700;
+    margin: 30px 0px;
+}
+
+.edit-painel{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.edit-form{
+    
+    width: 619px;
+    height: 354px;
+    background: #F2F2F2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 80% 20%;
+    
+}
+
+
+.edit-form input{
+    background: #FFFFFF;
+    border: 1px solid #B9B9B9;
+    box-sizing: border-box;
+    border-radius: 10px;
+    height: 25px;
+}
+
+.edit-form p{
+    
+    color: #2F2F2F   ;
+    font-size: 12px;
+}
+
+
+.campo{
+    margin: 20px;
+    text-align: left;
+    font-weight: 700;
+}
+
+.form-stats{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.form-stats input{
+    width: 60px;
+}
+
+.form-stats .range{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.form-stats .campo{
+    text-align: center;
+}
+
+.card-select{
+    height: 27px;
+    width: 175px;
+    border-radius: 10px;
+}
+
+.card-select option{
+    height: 27px;
+    width: 175px;
+    border-radius: 10px;
+    color: #000000;
+    background: #F2F2F2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.form-lore input{
+    width: 90%;
+    height: 36.79px;
+ 
+}
+
+.submit {
+    margin:20px;
+    grid-column-start: 1;
+    grid-column-end:3;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.submit button{
+    
+    border: 0;
+    width: 130px;
+    height: 28px;
+    color: #FFFFFF;
+    background: #30A7D7;
+    border-radius: 9px;
+    cursor: pointer;
+
+}
+.submit button:hover{
+    transition: 0.3ms;
+    width: 133px;
+    height: 30px;
+    background: #35bcf1;
+    box-shadow:  0px 4px 4px #dbdbdb;
+
+}
+
+.created-cards ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+@media(max-width: 425px){
+    .edit-painel{
+        
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .edit-form{
+        margin: 30px;
+        height: 650px;
+        width: 225px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-stats{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
